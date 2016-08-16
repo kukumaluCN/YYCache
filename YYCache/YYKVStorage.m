@@ -716,8 +716,8 @@ static UIApplication *_YYSharedApplication() {
         if (![self _dbOpen] || ![self _dbInitialize]) {
             [self _dbClose];
             NSLog(@"YYKVStorage init error: fail to open sqlite db.");
+            return nil;
         }
-        return nil;
     }
     [self _fileEmptyTrashInBackground]; // empty the trash if failed at last time
     return self;
@@ -846,7 +846,7 @@ static UIApplication *_YYSharedApplication() {
             }
             if ([self _dbDeleteItemsWithTimeEarlierThan:time]) {
                 [self _dbCheckpoint];
-                return NO;
+                return YES;
             }
         } break;
     }
